@@ -8,15 +8,15 @@ The application’s front end has already been created. It's your job to build t
 
 ## User Story
 
-```
+
 AS A small business owner
 I WANT to be able to write and save notes
 SO THAT I can organize my thoughts and keep track of tasks I need to complete
-```
+
 
 ## Acceptance Criteria
 
-```
+
 GIVEN a note-taking application
 WHEN I open the Note Taker
 THEN I am presented with a landing page with a link to a notes page
@@ -35,7 +35,7 @@ THEN that note appears in the right-hand column and a "New Note" button appears 
 
 WHEN I click on the "New Note" button in the navigation at the top of the page
 THEN I am presented with empty fields to enter a new note title and the note’s text in the right-hand column and the button disappears
-```
+
 
 ## Mock-Up
 
