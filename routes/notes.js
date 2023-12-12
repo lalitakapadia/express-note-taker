@@ -2,7 +2,7 @@ const express = require('express');
 
 //const notes = require('express').Router();
 
-const {v4:uuid} = require('uuid');
+const {v4:uuidv4} = require('uuid');
 
 const notes = express();
 
@@ -28,7 +28,7 @@ notes.post('/', (req, res) => {
     const newNotes = {
       title,
       text,
-      id: uuid.v4(),
+      id: uuidv4(),
     };
 
     readAndAppend(newNotes, "./db/db.json");
@@ -40,5 +40,12 @@ notes.post('/', (req, res) => {
     res.json(response);
   }
 });
+
+// create a new rout for delete notes
+// it should receive a parameter, note id
+// read the db.json file
+// parse the db.json into notes json
+// remove the given note id from the notes json
+// write the file with remainig notes json
 
 module.exports = notes;
