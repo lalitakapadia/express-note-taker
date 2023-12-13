@@ -1,9 +1,11 @@
+
+// Import Express.js
 const express = require('express');
 
-//const notes = require('express').Router();
-
+// unique id for notes 
 const {v4:uuidv4} = require('uuid');
 
+// Initialize an instance of Express.js
 const notes = express();
 
 const {
@@ -20,11 +22,15 @@ notes.get('/', (req, res) => {
     readFromFile('./db/db.json').then((data) => 
     res.json(JSON.parse(data)));
 });
-
+// POST request for new notes from the database 
 notes.post('/', (req, res) => {
+  
+  // Destructuring assignment for the items in req.body
   const {title, text} = req.body;
 
+    // If all the required properties are present
   if (title && text) {
+     // Variable for the object we will save
     const newNotes = {
       title,
       text,
@@ -41,11 +47,48 @@ notes.post('/', (req, res) => {
   }
 });
 
-// create a new rout for delete notes
-// it should receive a parameter, note id
-// read the db.json file
-// parse the db.json into notes json
-// remove the given note id from the notes json
-// write the file with remainig notes json
+// DELETE Route for a specific note
+const fs = require('fs');
+const path = require('path');
+
+notes.delete('/:id', (req, res) => {
+  // Get the note ID from the request parameters
+  const noteId = req.params.id;
+
+  // Read the contents of the db.json file
+  fs.readFile('./db/db.json', 'utf8', (err, data) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({ error: 'Internal server error' });
+    }
+
+    // Parse the JSON data into an array of notes
+    let notes = JSON.parse(data);
+
+    // Find the index of the note with the matching ID
+    const noteIndex = notes.findIndex(note => note.id === noteId);
+
+    // If the note is found, remove it from the array
+    if (noteIndex !== -1) {
+      notes.splice(noteIndex, 1);
+
+      // Write the updated notes array back to the db.json file
+      fs.writeFile('./db/db.json', JSON.stringify(notes), err => {
+        if (err) {
+          console.error(err);
+          // the purpose of the if statement is to allow a way to throw an error when something goes wrong
+          return res.status(500).json({ error: 'Internal server error' });
+        }
+
+        // Return a success response
+        res.json({ message: 'Note deleted successfully' });
+      });
+    } else {
+      // If the note is not found, return a not found response
+      res.status(404).json({ error: 'Note not found' });
+    }
+  });
+});
+
 
 module.exports = notes;
