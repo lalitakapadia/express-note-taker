@@ -14,6 +14,6 @@ User can delete notes from the list by clicking on bin icon to delete notes from
 Made this backend note taker using the express.js module, npm install express, npm init -y for packages.json.
 
 
-![Alt text](assets/images/note-taker-new.png)
+![Alt text](public/assets/images/note-taker-new.png)
 
-![Alt text](assets/images/note-taker-view.png)
+![Alt text](public/assets/images/note-taker-view.png)
