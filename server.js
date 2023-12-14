@@ -6,7 +6,7 @@ const path = require('path');
 const api = require('./routes/index');
 
 // Specify on which port the Express.js server will run
-const port = process.env.port || 3002;
+const port = process.env.PORT || 3002;
 
 const app = express();
 // Middleware for parsing JSON and urlencoded form data
